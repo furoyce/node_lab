@@ -1,13 +1,15 @@
+var http = require('http');
 
-setTimeout(function(){
-    console.log("world");
-}, 2000)
+var s = http.createServer(function(req, res) {
+    res.writeHead(200, {'Content-type': 'text/plain'}); 
+    res.write("hello\n");
+    
+    setTimeout(function() {
+        res.end("world\n");
+    }, 2000);
+})
 
-console.log("hello");
+s.listen(3000);
 
-var fs = require('fs');
-
-fs.readFile('/etc/passwd',function (err, data){
-    if (err) throw err;
-    console.log(data.toString());
-});
+//apache benchmark testing
+//ab -n 100 -c 100 http://localhost:3000/
